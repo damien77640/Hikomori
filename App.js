@@ -11,17 +11,17 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator>
+      <Stack.Navigator>
         <Stack.Screen //exemple parametrage route
-            name="Home"
-            component={Dashboard}
-          />
-          <Stack.Screen 
-            name="Details Manga"
-            component={DetailsManga}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+          name="Home"
+          component={Dashboard}
+        />
+        <Stack.Screen
+          name="Details Manga"
+          component={DetailsManga}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
