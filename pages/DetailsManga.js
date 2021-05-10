@@ -17,11 +17,22 @@ const DetailsManga =  ({route, navigation: { navigate } }) => {
       .get(path)
       .then(response => {
         setData(response.data)
-      })
+      }).catch(function(error) {
+console.log('There has been a problem with your fetch operation: ' + error.message);
+ // ADD THIS THROW error
+  throw error;
+});
   },
     [])
 
     console.log(data)
+
+
+const styles = StyleSheet.create({
+  container: {
+    fontFamily: 'Montserrat'
+  },
+});
 
   
   return (
@@ -29,48 +40,51 @@ const DetailsManga =  ({route, navigation: { navigate } }) => {
    
 
         
-      <div className="all_page" >
+      <View style={tailwind('h-full w-full' )}  >
       
 
                 
               {data ? (
 
-                <div className="manga">
+                <View className="manga">
               
 
                   {data.map(manga => (
                 
-                      <div>
-                        <div >
-
+                      <View style={tailwind(' w-full font-dosis' )} >
+                        <View  style={tailwind('text-center   ' )} >
+                          <img  style={tailwind('rounded-xl mt-3 w-2/5   self-center' )}  src={manga.posterImageSmall} alt="Logo" />
+                        </View>
                         
-                          <img  style={tailwind('rounded-xl')}  src={manga.posterImageSmall} alt="Logo" />
-                         
-                         {/* <div className="info_droite">
+                     
+                        <View    style={tailwind('mx-5  text-center')}>
+
+                          <View className="">
                             
-                            <h1> {manga.tittles_en} </h1> 
+                            <h1 style={tailwind(' text-indigo-600 ' )}> {manga.tittles_en} </h1> 
                           
-                              <p style={{color:"#E8ECF2",marginLeft:"10px",fontSize:"15px",fontWeight:"bold"}}>Popularity Rank : {manga.popularityRank}</p>
-                              <p style={{color:"#E8ECF2",marginLeft:"10px",fontSize:"15px",fontWeight:"bold"}}>Episode Length : {manga.episodeLength}</p>
-                          </div>
+                              <p >Popularity Rank : {manga.popularityRank}</p>
+                              <p >Episode Length : {manga.episodeLength}</p>
+                          </View>
 
-                        </div>
+                        </View>
+                        
 
-                      <div>
+                      <View style={tailwind('mx-7  text-justify')} >
                       <h2>SYNOPSIS</h2>
 
-                      <div className="synopsis">
+                      <View className="synopsis rounded-xl border-solid border-4">
                           {manga.synopsis}
-                      </div>
-                      */}
-                      </div>
+                      </View>
+                  
+                      </View>
 
-                  </div>
+                  </View>
                                           
                   ))}
-                </div>
+                </View>
               ) : (
-              <div> Loading... </div>
+              <View> Loading... </View>
               )}
 
 
@@ -78,7 +92,7 @@ const DetailsManga =  ({route, navigation: { navigate } }) => {
               
 
 
-        </div>
+        </View>
     </View>
   );
 }
