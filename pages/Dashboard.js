@@ -15,8 +15,7 @@ const Dashboard = ({ navigation: { navigate } }) => {
     [])
   const Manga = () => {
     let lstManga = []
-    let contenu
-    console.log("data",data)
+    let contenu = ""
     data.map((manga, i) => {
       // permet de vérifier si le synopsis possède plus de 250 caractére
       if (manga.synopsis.length > 250) {
@@ -26,12 +25,12 @@ const Dashboard = ({ navigation: { navigate } }) => {
       lstManga.push(
         <View>
           <img onClick={() =>
-          //navigate('Details Manga') //permet daller à la page Details Manga
-          navigate('Details Manga', {
-            id: manga.id,
-            otherParam: 'anything you want here',
-          })
-        } src={manga.posterImageSmall} alt={'image'+i}></img>
+            //navigate('Details Manga') //permet daller à la page Details Manga
+            navigate('Details Manga', {
+              id: manga.id,
+              otherParam: 'anything you want here',
+            })
+          } src={manga.posterImageSmall} alt={'image' + i}></img>
           {contenu}
         </View>
       )
@@ -41,7 +40,6 @@ const Dashboard = ({ navigation: { navigate } }) => {
 
   return (
     <View style={styles.container}>
-
       {Manga()}
     </View>
   )
