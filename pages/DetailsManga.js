@@ -7,10 +7,10 @@ import axios from "axios";
 const DetailsManga =  ({route, navigation: { navigate } }) => {
 
   const { id, otherParam } = route.params;
-  console.log(otherParam)
+  console.log(id)
 
   
-  const path = `http://localhost:7272/manga/1`
+  const path = `http://localhost:7272/manga/${id}`
   const [data, setData] = useState([])
   useEffect(() => {
     axios

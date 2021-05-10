@@ -3,7 +3,7 @@ import axios from "axios";
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 const Dashboard = ({ navigation: { navigate } }) => {
-  const path = "http://localhost:4343/manga"
+  const path = "http://localhost:7272/manga"
   const [data, setData] = useState([])
   useEffect(() => {
     axios
@@ -16,6 +16,7 @@ const Dashboard = ({ navigation: { navigate } }) => {
   const Manga = () => {
     let lstManga = []
     let contenu
+    console.log("data",data)
     data.map((manga, i) => {
       // permet de vérifier si le synopsis possède plus de 250 caractére
       if (manga.synopsis.length > 250) {
@@ -23,10 +24,16 @@ const Dashboard = ({ navigation: { navigate } }) => {
       }
       // Affichage des images et du synopsis
       lstManga.push(
-        <>
-          <img src={manga.posterImageSmall} alt={'image'+i}></img>
+        <View>
+          <img onClick={() =>
+          //navigate('Details Manga') //permet daller à la page Details Manga
+          navigate('Details Manga', {
+            id: manga.id,
+            otherParam: 'anything you want here',
+          })
+        } src={manga.posterImageSmall} alt={'image'+i}></img>
           {contenu}
-        </>
+        </View>
       )
     })
     return lstManga
@@ -34,16 +41,7 @@ const Dashboard = ({ navigation: { navigate } }) => {
 
   return (
     <View style={styles.container}>
-      <Button
-        title="bouton Detail Manga"
-        onPress={() =>
-          //navigate('Details Manga') //permet daller à la page Details Manga
-          navigate('Details Manga', {
-            id: 86,
-            otherParam: 'anything you want here',
-          })
-        }
-      />
+
       {Manga()}
     </View>
   )
