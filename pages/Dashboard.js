@@ -37,7 +37,11 @@ const Dashboard = ({ navigation: { navigate } }) => {
       <Button
         title="bouton Detail Manga"
         onPress={() =>
-          navigate('Details Manga') //permet daller à la page Details Manga
+          //navigate('Details Manga') //permet daller à la page Details Manga
+          navigate('Details Manga', {
+            id: 86,
+            otherParam: 'anything you want here',
+          })
         }
       />
       {Manga()}
