@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { StyleSheet, Text, View, Button } from 'react-native';
+import tailwind from 'tailwind-rn';
 
 const Dashboard = ({ navigation: { navigate } }) => {
+
+  const styles = StyleSheet.create({
+    container: {
+      fontFamily: 'Montserrat',
+      fontSize:"10px"
+    },
+  });
   const path = "http://localhost:7272/manga"
   const [data, setData] = useState([])
   useEffect(() => {
@@ -24,15 +32,15 @@ const Dashboard = ({ navigation: { navigate } }) => {
       }
       // Affichage des images et du synopsis
       lstManga.push(
-        <View>
-          <img onClick={() =>
+        <View  style={tailwind('text-center  ' )}>
+          <img style={tailwind(' w-2/5   border rounded-lg self-center mt-10' )} onClick={() =>
           //navigate('Details Manga') //permet daller à la page Details Manga
           navigate('Details Manga', {
             id: manga.id,
             otherParam: 'anything you want here',
           })
         } src={manga.posterImageSmall} alt={'image'+i}></img>
-          {contenu}
+        <h1 style={tailwind('text-center ' )}>{manga.tittles_jap}</h1>
         </View>
       )
     })
