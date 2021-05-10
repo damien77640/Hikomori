@@ -8,7 +8,7 @@ const Dashboard = ({ navigation: { navigate } }) => {
   const styles = StyleSheet.create({
     container: {
       fontFamily: 'Montserrat',
-      fontSize:"10px"
+      fontSize:"15px"
     },
   });
   const path = "http://localhost:7272/manga"
@@ -31,15 +31,15 @@ const Dashboard = ({ navigation: { navigate } }) => {
       }
       // Affichage des images et du synopsis
       lstManga.push(
-        <View>
-          <img onClick={() =>
+        <View  style={tailwind(' text-center ')}>
+          <img  style={tailwind(' w-2/5 border rounded-lg self-center mt-8 ')} onClick={() =>
             //navigate('Details Manga') //permet daller à la page Details Manga
             navigate('Details Manga', {
               id: manga.id,
               otherParam: 'anything you want here',
             })
           } src={manga.posterImageSmall} alt={'image' + i}></img>
-          {contenu}
+          {manga.tittles_jap}
         </View>
       )
     })
@@ -48,6 +48,7 @@ const Dashboard = ({ navigation: { navigate } }) => {
 
   return (
     <View style={styles.container}>
+      
       {Manga()}
     </View>
   )
