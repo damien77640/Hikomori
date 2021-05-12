@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
 import { useParams } from 'react-router';
 import tailwind from 'tailwind-rn';
 import axios from "axios";
@@ -8,7 +8,7 @@ const DetailsManga = ({ route, navigation: { navigate } }) => {
 
   const { id } = route.params;
 
-  const path = `http://localhost:7272/manga/${id}`
+  const path = `http://900f1720e4b3.ngrok.io/manga/${id}`
   const [data, setData] = useState([])
   useEffect(() => {
     axios
@@ -23,34 +23,30 @@ const DetailsManga = ({ route, navigation: { navigate } }) => {
   },
     [])
 
-  const styles = StyleSheet.create({
-    container: {
-      fontFamily: 'Montserrat'
-    },
-  });
-
 
   return (
     <View style={styles.container}>
       <View style={tailwind('h-full w-full')}  >
         {data ? (
-          <View className="manga">
-            {data.map(manga => (
-              <View style={tailwind(' w-full font-dosis')} >
+          <View class="manga">
+            {data.map((manga, i) => (
+              <View key={i}>
                 <View style={tailwind('text-center   ')} >
-                  <img style={tailwind('rounded-xl mt-3 w-2/5   self-center')} src={manga.posterImageSmall} alt="Logo" />
+                  <Image style={tailwind(' w-10 h-10')} source={{ uri: manga.posterImageSmall }} alt={'image' + i}></Image>
                 </View>
                 <View style={tailwind('mx-5  text-center')}>
-                  <View className="">
-                    <h1 style={tailwind(' text-indigo-600 ')}> {manga.tittles_en} </h1>
-                    <p >Popularity Rank : {manga.popularityRank}</p>
-                    <p >Episode Length : {manga.episodeLength}</p>
+                  <View class="">
+                    <Text style={tailwind(' text-indigo-600 ')}> {manga.tittles_en} </Text>
+                    <Text>Popularity Rank : {manga.popularityRank}</Text>
+                    <Text>Episode Length : {manga.episodeLength}</Text>
                   </View>
                 </View>
                 <View style={tailwind('mx-7  text-justify')} >
-                  <h2>SYNOPSIS</h2>
-                  <View className="synopsis rounded-xl border-solid border-4">
-                    {manga.synopsis}
+                  <Text>SYNOPSIS</Text>
+                  <View class="synopsis rounded-xl border-solid border-4">
+                    <ScrollView>
+                      <Text style={styles.text} >{manga.synopsis}</Text>
+                    </ScrollView>
                   </View>
                 </View>
               </View>
@@ -67,9 +63,10 @@ const DetailsManga = ({ route, navigation: { navigate } }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: 'Montserrat',
+  },
+  text: {
+    fontSize: 18,
   },
 });
 

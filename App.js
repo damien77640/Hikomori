@@ -13,9 +13,6 @@ import {APIKEY,STORAGE_BUCKET,MSGID,APPID} from '@env'
 import { AuthContext } from './Components/Context';
 import RootStackScreen from './Components/pages/RootStackScreen'
 import HomeStackScreen from './Components/pages/HomeStackScreen'
-import Dashboard from './Components/pages/Dashboard';
-import DetailsManga from './Components/pages/DetailsManga';
-import Home from './Components/pages/Home'
 
 
 const firebaseConfig = {
@@ -78,16 +75,3 @@ export default function App() {
   );
 }
 
-
-      // <Stack.Navigator  headerMode="none">
-      //   <Stack.Screen //exemple parametrage route
-      //     name="Home"
-      //     component={Dashboard}
-      //   />
-
-      //   <Stack.Screen
-      //     name="Details Manga"
-      //     component={DetailsManga}
-      //   />
-
-      // </Stack.Navigator>

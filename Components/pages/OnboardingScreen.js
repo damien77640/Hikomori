@@ -12,8 +12,8 @@ import Onboarding from 'react-native-onboarding-swiper';
 function OnboardingScreen({navigation}) {
     return (
         <Onboarding
-            onSkip={()=> navigation.navigate('SignInScreen')}
-            onDone={()=> navigation.navigate('SignInScreen')}
+            onSkip={()=> navigation.navigate('Dashboard')}
+            onDone={()=> navigation.navigate('Dashboard')}
             pages={[
                 {
                     backgroundColor: '#A6E4D0',

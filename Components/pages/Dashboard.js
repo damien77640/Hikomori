@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight, ScrollView, Button } from 'react-native';
 import tailwind from 'tailwind-rn';
 
 const Dashboard = ({ navigation: { navigate } }) => {
 
-  const styles = StyleSheet.create({
-    container: {
-      fontFamily: 'Montserrat',
-      fontSize:"15px"
-    },
-  });
-  const path = "http://localhost:7272/manga"
+  const path = "http://900f1720e4b3.ngrok.io/manga"
   const [data, setData] = useState([])
   useEffect(() => {
     axios
       .get(path)
       .then(response => {
-        setData(response.data)
+        setData(response.data.slice(0,100))
       })
   },
     [])
@@ -29,18 +23,20 @@ const Dashboard = ({ navigation: { navigate } }) => {
       if (manga.synopsis.length > 250) {
         contenu = manga.synopsis.substr(0, 250) + '...'
       }
-      // Affichage des images et du synopsis
+
       lstManga.push(
-        <View  style={tailwind(' text-center ')}>
-          <img  style={tailwind(' w-2/5 border rounded-lg self-center mt-8 ')} onClick={() =>
-            //navigate('Details Manga') //permet daller à la page Details Manga
+        <View  key={i} style={tailwind(' text-center ')}> 
+          <TouchableHighlight onPress={() =>
+             //permet daller à la page Details Manga
             navigate('Details Manga', {
               id: manga.id,
               otherParam: 'anything you want here',
             })
-          } src={manga.posterImageSmall} alt={'image' + i}></img>
-          {manga.tittles_jap}
-        </View>
+          }>
+          <Image style={tailwind(' w-10 h-10')} source={{uri : manga.posterImageSmall }} alt={'image' + i}></Image>
+          </TouchableHighlight>
+          <Text>{manga.tittles_jap}</Text>
+          </View>
       )
     })
     return lstManga
@@ -48,8 +44,16 @@ const Dashboard = ({ navigation: { navigate } }) => {
 
   return (
     <View style={styles.container}>
-      
+      <Button
+  onPress={() =>
+    //permet daller à la page Details Manga
+   navigate('SignUpScreen')
+ }
+  title="Page Login en attendant la NavBar ta vu"
+/>
+      <ScrollView>
       {Manga()}
+      </ScrollView>
     </View>
   )
 }
@@ -58,9 +62,7 @@ const Dashboard = ({ navigation: { navigate } }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: 'Montserrat',
   },
 });
 
