@@ -1,28 +1,78 @@
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
 import React from 'react';
+import { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Dashboard from './pages/Dashboard';
-import DetailsManga from './pages/DetailsManga';
+import { ActivityIndicator, View } from 'react-native';
+
+import { AuthContext } from './Components/Context';
+
+import RootStackScreen from './Components/pages/RootStackScreen'
+import HomeStackScreen from './Components/pages/HomeStackScreen'
+import Dashboard from './Components/pages/Dashboard';
+import DetailsManga from './Components/pages/DetailsManga';
+import Home from './Components/pages/Home'
+
+
+
+
+
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [userToken, setUserToken] = React.useState(null)
+
+  const authContext = React.useMemo(() => ({
+    signIn: () => {
+      setUserToken('fgkj')
+      setIsLoading(false)
+    },
+    signOut: () => {
+      setUserToken(null)
+      setIsLoading(false)
+    },
+    signUp: () => {
+      setUserToken('fgkj')
+      setIsLoading(false)
+    },
+  }))
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }, [])
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+        <ActivityIndicator size="large" />
+      </View>
+    )
+  }
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen //exemple parametrage route
-          name="Home"
-          component={Dashboard}
-        />
-        <Stack.Screen
-          name="Details Manga"
-          component={DetailsManga}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {userToken != null ?(
+          <HomeStackScreen/>
+        ): <RootStackScreen />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
 
 
+      // <Stack.Navigator  headerMode="none">
+      //   <Stack.Screen //exemple parametrage route
+      //     name="Home"
+      //     component={Dashboard}
+      //   />
+
+      //   <Stack.Screen
+      //     name="Details Manga"
+      //     component={DetailsManga}
+      //   />
+
+      // </Stack.Navigator>
