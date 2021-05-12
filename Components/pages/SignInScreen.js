@@ -56,6 +56,16 @@ function LoginScreen({ navigation }) {
             })
         }
     }
+    const onSignIn = (email , password) => {
+        console.log(email , password);
+        firebase.auth().signInWithEmailAndPassword(email , password)
+            .then((resuls) => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -103,7 +113,7 @@ function LoginScreen({ navigation }) {
                         onPress={() => eyePressed()}
                     />
                 </View>
-                <Button title='Sign In' onPress={() => {signIn()}} />
+                <Button title='Sign In' onPress={() => {onSignIn(data.email,data.password)}} />
                 <Button title='Sign Up' onPress={() => navigation.navigate('SignUpScreen')} />
             </View>
         </View>

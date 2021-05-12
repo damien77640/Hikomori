@@ -2,34 +2,17 @@ import React from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
     TextInput,
     Platform,
     StyleSheet,
-    StatusBar,
-    Alert,
     Image,
     Button
 } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+
+import firebase from 'firebase'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-
-// import {HOST , USERNAMEDB , PASSWORD , DATABASE} from '@env'
-// import knex from 'react-native-knex'
-// const database = knex({
-//   client: 'pg',
-//   connection: {
-//     host: HOST,
-//     user: USERNAMEDB,
-//     password: PASSWORD,
-//     database: DATABASE
-//   },
-// });
-
-
-
 
 
 function SignUpScreen({ navigation }) {
@@ -41,20 +24,7 @@ function SignUpScreen({ navigation }) {
         check_TextInputChange: false,
         secureTextEntry: true,
         ConfirmSecureTextEntry: true
-    })
-
-    // const createUser = () => {
-    //     database.schema.hasTable('users').then(function (exists) {
-    //         if (!exists) {
-    //           return database.schema.createTable('users', function (table) {
-    //             table.increments('id').primary();
-    //             table.text('UserEmail');
-    //             table.text('Password');
-    //           })
-    //         }
-    //       })}
-            
-
+    })      
     const handlePasswordChange = (val) => {
         setData({
             ...data,
@@ -97,6 +67,38 @@ function SignUpScreen({ navigation }) {
             })
         }
     }
+
+const onSignUp = (email , password) => {
+    console.log(email , password);
+    firebase.auth().createUserWithEmailAndPassword(email , password)
+        .then((resuls) => {
+            console.log(result);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+    // constructor(props)
+    // {
+    //     super(props)
+    //     this.state={
+    //         email : '',
+    //         password : '',
+    //     }
+    //     this.onSignUp = this.onSignUp.bind(this)
+    // }
+
+    // onSignUp(){
+    //     const {email , password} = this.state
+    //     firebase.auth().createUserWithEmailAndPassword(email , password)
+    //     .then((resuls) => {
+    //         console.log(result);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
     return (
         // <View style = {styles.container}>
         //     <Text>Sign In Screen Hello !</Text>
@@ -172,7 +174,7 @@ function SignUpScreen({ navigation }) {
                     <Text style={styles.text_error} > The passwords have to be the same</Text>
                     : null}
                 <Button title='Sign In' onPress={() => navigation.navigate('SignInScreen')} />
-                <Button title='Sign Up' />
+                <Button title='Sign Up' onPress={() => onSignUp(data.email,data.password)}/>
             </View>
         </View>
     )

@@ -5,9 +5,12 @@ import { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ActivityIndicator, View } from 'react-native';
+import * as firebase from 'firebase'
+
+import {APIKEY,STORAGE_BUCKET,MSGID,APPID} from '@env'
+
 
 import { AuthContext } from './Components/Context';
-
 import RootStackScreen from './Components/pages/RootStackScreen'
 import HomeStackScreen from './Components/pages/HomeStackScreen'
 import Dashboard from './Components/pages/Dashboard';
@@ -15,6 +18,18 @@ import DetailsManga from './Components/pages/DetailsManga';
 import Home from './Components/pages/Home'
 
 
+const firebaseConfig = {
+  apiKey: APIKEY,
+  authDomain: "hikomoribackup.firebaseapp.com",
+  projectId: "hikomoribackup",
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MSGID,
+  appId: APPID
+};
+
+if(firebase.apps.length ===0){
+  firebase.initializeApp(firebaseConfig)
+}
 
 
 
