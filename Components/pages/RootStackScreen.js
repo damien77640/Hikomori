@@ -9,6 +9,7 @@ import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import Dashboard from './Dashboard';
 import DetailsManga from './DetailsManga';
+import Geoloc from './Geoloc';
 
 const RootStack = createStackNavigator()
 
@@ -21,6 +22,7 @@ function RootStackScreen({navigation}) {
             <RootStack.Screen name='SignUpScreen' component={SignUpScreen}/>
             <RootStack.Screen name='Dashboard' component={Dashboard} />
             <RootStack.Screen name='Details Manga' component={DetailsManga} options={({ route }) => ({ title: route.params.name })} />
+            <RootStack.Screen name='Geoloc' component={Geoloc} />
         </RootStack.Navigator>
     )
 }

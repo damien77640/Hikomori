@@ -46,10 +46,15 @@ const Dashboard = ({ navigation: { navigate } }) => {
     <View style={styles.container}>
       <Button
   onPress={() =>
-    //permet daller à la page Details Manga
    navigate('SignUpScreen')
  }
   title="Page Login en attendant la NavBar ta vu"
+/>
+<Button
+  onPress={() =>
+   navigate('Geoloc')
+ }
+  title="Page pour avoir la Geoloc ta vu"
 />
       <ScrollView>
       {Manga()}
